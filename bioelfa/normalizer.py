@@ -10,9 +10,13 @@ NOTE:
 - cell -> number of reads of a certain family in a sample
 """
 
+import argparse
+import os
+
+import numpy
 import pandas
 from tqdm import tqdm
-import numpy
+
 import dataloader
 
 
@@ -82,12 +86,38 @@ def normalize_data(dataframe: pandas.DataFrame, threshold: int) -> pandas.DataFr
     return selected
 
 def normalize():
-    filename='bacteria_family.csv'
-    dataframe = dataloader.load_csv(filename)
+    """
+    Entrypoint fuctionto normalize the reads by a threshold T (the smallest number of total
+    reads among all the samples). To normalize, we get the threshold and then we randomly pick T reads
+    from each sample.
+    """
+    parser = argparse.ArgumentParser(description=normalize.__doc__)
+    parser.add_argument('filepath', metavar='CSV_FILE', type=str,
+                        help='path to a csv file representing a gene reads table to normalize')
+    parser.add_argument('--seed', type=int, default=0,
+                        help='the seed used to initialize the random generator for the sampling '
+                             'operation. Defaults to 0')
+
+    args = parser.parse_args()
+
+    # Load CSV file
+    csv_ext = os.extsep + 'csv'
+    filepath = args.filepath if args.filepath.lower().endswith(csv_ext) else args.filepath + csv_ext
+    dataframe = dataloader.load_csv(filepath)
+
+    # Select threshold for normalization
     threshold, min_sample = get_reads_threshold(dataframe)
     print(f'Threshold selected {threshold} which is {min_sample}')
+
+    # Set seed of NumPy random number generator to be reproducible
+    numpy.random.seed(args.seed)
+
+    # Normalize
     normalized_dataframe = normalize_data(dataframe, threshold)
-    dataloader.to_csv(normalized_dataframe, 'normalized_'+filename)
+    
+    # Save result in the same folder, but with 'normalized_' prefix
+    result_path = os.path.join(os.path.dirname(filepath), 'normalized_' + os.path.basename(filepath))
+    dataloader.to_csv(normalized_dataframe, result_path)
 
 if __name__ == u'__main__':
     normalize()
