@@ -5,10 +5,10 @@
 from setuptools import find_namespace_packages, setup
 
 REQUIREMENTS = [
-    'tqdm~=4.60.0',
-    'pandas~=1.2.4',
+    'tqdm~=4.60',
+    'pandas~=1.2',
     'biopython~=1.78',
-    'numpy~=1.20.2'
+    'numpy~=1.20'
 ]
 
 CONSOLE_SCRIPTS = [
