@@ -1,42 +1,15 @@
-# Bioelfa
+<div align="center">
+  <img src="src/bioelfa/streamlit/static/logo.png" width="200"><br><br>
+  <p>
+    <a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
+    <a href="https://www.python.org/"><img alt="Made with Python" src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg"></a>
+    <img alt="Python Version" src="https://img.shields.io/badge/python-%E2%89%A53.8-blue">
 
-Set of utilities created for Ellen Fasth.
+  </p>
+</div>
 
-## Install
+## Contributing 
 
-Install [conda](https://docs.conda.io/en/latest/miniconda.html) or create a virtual environment.
-Activate the virtual environment and change directory to the root folder of the repository, then
-install the package:
+This package is open-source and everyone is welcome to contribute and create PRs.
 
-```sh
-pip install .
-```
-
-## Commands
-
-After installing, run the following command to see what's available:
-
-```sh
-bioelfa
-```
-
-# Example
-
-For example, if you are in the root of the git repository, you can run:
-
-```sh
-bioelfa normalize data/bacteria_family.csv
-```
-
-and the result will be `data/normalized_bacteria_family.csv`. You can use absolute paths from anywhere in your computer. Note that the result will be a CSV file in the same path of the input file with a normalized_ prefix.
-
-## Contributing
-
-This package is open-source and everyone is welcomed to contribute and create PRs.
-
-Some steps are necessary to get the right set-up to contribute:
-
-- install all the dev dependencies `pip install -e .[dev]`
-- install pre-commit hook: `pre-commit install`
-- you can run the dashboard in develop mode if you want: `bioelfa dashboard -d`
-- write your code, and create a pull-request on github on this repository.
+Read the [package README](src/bioelfa/README.md) for more details.
