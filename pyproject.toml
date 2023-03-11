@@ -24,7 +24,8 @@ dependencies = [
     'pandas',
     'biopython',
     'numpy',
-    'rich_click'
+    'rich_click',
+    'streamlit',
   ]
 
 [project.optional-dependencies]
@@ -32,6 +33,7 @@ dev = [
     "black==23.1.0",
     "pre-commit",
     "build",
+    "mypy"
   ]
 
 [tool.setuptools]

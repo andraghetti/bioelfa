@@ -18,7 +18,7 @@ from tqdm import tqdm
 
 from bioelfa import dataloader
 
-from typing import Tuple
+from typing import Tuple, Union, Any
 
 
 def get_reads_threshold(dataframe: pandas.DataFrame) -> Tuple[int, str]:
@@ -86,16 +86,12 @@ def normalize_data(dataframe: pandas.DataFrame, threshold: int) -> pandas.DataFr
             selected.loc[family_index, sample_name] = num_reads
     return selected
 
-def normalize(filepath: str, seed:int = 0):
+def normalize(dataframe: pandas.DataFrame, seed:int = 0):
     """
     Normalize the reads by a threshold T (the smallest number of total
     reads among all the samples). To normalize, we get the threshold and then we randomly pick T reads
     from each sample.
     """
-    # Load CSV file
-    csv_ext = os.extsep + 'csv'
-    filepath = filepath if filepath.lower().endswith(csv_ext) else filepath + csv_ext
-    dataframe = dataloader.load_csv(filepath)
 
     # Select threshold for normalization
     threshold, min_sample = get_reads_threshold(dataframe)
@@ -106,8 +102,5 @@ def normalize(filepath: str, seed:int = 0):
 
     # Normalize
     normalized_dataframe = normalize_data(dataframe, threshold)
-    
-    # Save result in the same folder, but with 'normalized_' prefix
-    result_path = os.path.join(os.path.dirname(filepath), 'normalized_' + os.path.basename(filepath))
-    dataloader.to_csv(normalized_dataframe, result_path)
+    return normalized_dataframe
 
