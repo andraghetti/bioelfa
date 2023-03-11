@@ -1,20 +1,15 @@
 import os
-import dataloader
-import argparse
-import pandas as pd
 from pathlib import Path
 
+import pandas as pd
 
-def load_file():
-    parser = argparse.ArgumentParser(description=count_occurences.__doc__)
-    parser.add_argument('filepath', metavar='CSV_FILE', type=str,
-                        help='path to a csv file with two columns of genes in AGI format to compare')
+from bioelfa import dataloader
 
-    args = parser.parse_args()
 
+def load_file(filepath: str):
     # Load CSV file
     csv_ext = os.extsep + 'csv'
-    filepath = args.filepath if args.filepath.lower().endswith(csv_ext) else args.filepath + csv_ext
+    filepath = filepath if filepath.lower().endswith(csv_ext) else filepath + csv_ext
     dataframe = dataloader.load_csv(filepath, has_header=False)
     return dataframe
 
@@ -47,12 +42,12 @@ def count_occurences(dataframe) -> pd.DataFrame:
     }
     return pd.DataFrame(list(occurences.items()), columns=['Gene', 'Occurrences'])
 
-def main():
-    dataframe = load_file()
+def compare_datasets(filepath: str):
+    """Loads a CSV file with two columns with genes in AGI format
+    and counts the occurences of the second dataset in the first dataset.
+    """
+    dataframe = load_file(filepath)
     occurences = count_occurences(dataframe)
-    filepath = Path("data/occurences.csv")
-    dataloader.to_csv(occurences, filepath, index=True)
-    print(f"Occurences file saved in: {filepath.absolute()}")
-
-if __name__ == "__main__":
-    main()
+    outfile_path = Path("data/occurences.csv")
+    dataloader.to_csv(occurences, str(outfile_path), index=True)
+    print(f"Occurences file saved in: {outfile_path.absolute()}")

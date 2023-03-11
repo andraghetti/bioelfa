@@ -8,7 +8,8 @@ REQUIREMENTS = [
     'tqdm',
     'pandas',
     'biopython',
-    'numpy'
+    'numpy',
+    'rich_click'
 ]
 
 CONSOLE_SCRIPTS = [
