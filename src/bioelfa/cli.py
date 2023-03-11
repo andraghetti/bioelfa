@@ -1,7 +1,7 @@
 import logging
 from pathlib import Path
+import importlib.metadata
 
-from bioelfa._version import __version__
 from bioelfa import normalizer, geneset_compare, dataloader
 from bioelfa.dashboard import start_dashboard
 
@@ -20,7 +20,8 @@ def bioelfa():
 @bioelfa.command()
 def version():
     """Print version and exit."""
-    print(f"Version: {__version__}")
+    version = importlib.metadata.version("bioelfa")
+    print(f"Version: {version}")
 
 
 @bioelfa.command(help=normalizer.normalize.__doc__)
