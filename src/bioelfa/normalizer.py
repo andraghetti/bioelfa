@@ -10,15 +10,13 @@ NOTE:
 - cell -> number of reads of a certain family in a sample
 """
 
-import os
 
 import numpy
 import pandas
 from tqdm import tqdm
 
-from bioelfa import dataloader
 
-from typing import Tuple, Union, Any
+from typing import Tuple
 
 
 def get_reads_threshold(dataframe: pandas.DataFrame) -> Tuple[int, str]:
