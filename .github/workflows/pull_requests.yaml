@@ -24,8 +24,5 @@ jobs:
         pip install poetry
         poetry install --no-root --no-interaction
 
-    - name: Install dev dependencies
-      run: poetry install --no-root --no-interaction --dev
-
     - name: Run codestyle
-      run: pre-commit run --all-files
+      run: poetry run pre-commit run --all-files
