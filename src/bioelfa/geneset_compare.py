@@ -8,15 +8,14 @@ from bioelfa import dataloader
 
 def load_file(filepath: str):
     # Load CSV file
-    csv_ext = os.extsep + 'csv'
+    csv_ext = os.extsep + "csv"
     filepath = filepath if filepath.lower().endswith(csv_ext) else filepath + csv_ext
     dataframe = dataloader.load_csv(filepath, has_header=False)
     return dataframe
 
 
 def split_and_unwrap_df(dataframe_column: pd.Series):
-
-    dataframe_list = dataframe_column.fillna('').str.split('///').tolist()
+    dataframe_list = dataframe_column.fillna("").str.split("///").tolist()
     new_list = []
 
     # Iterate over the original list of lists
@@ -34,13 +33,14 @@ def count_occurences(dataframe) -> pd.DataFrame:
     # split entries in 'dataset1' into separate rows
     dataset1 = split_and_unwrap_df(dataframe.iloc[:, 0])
     dataset2 = split_and_unwrap_df(dataframe.iloc[:, 1])
-    
+
     occurences = {
         elem: dataset1.count(elem)
         for elem in sorted(dataset2)
-        if isinstance(elem, str) and elem != '0' and elem != ''
+        if isinstance(elem, str) and elem != "0" and elem != ""
     }
-    return pd.DataFrame(list(occurences.items()), columns=['Gene', 'Occurrences'])
+    return pd.DataFrame(list(occurences.items()), columns=["Gene", "Occurrences"])
+
 
 def compare_datasets(filepath: str):
     """Loads a CSV file with two columns with genes in AGI format
