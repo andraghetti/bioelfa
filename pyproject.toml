@@ -34,7 +34,7 @@ classifiers = [
 bioelfa = "bioelfa.cli:bioelfa"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 tqdm = "^4.0"
 pandas = "^1.5.3"
 biopython = "^1.81"
