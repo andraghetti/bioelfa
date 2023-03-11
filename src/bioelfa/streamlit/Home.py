@@ -7,6 +7,8 @@ from bioelfa import normalizer, dataloader
 CURRENT_DIRECTORY = Path(__file__).parent
 STATIC_DIR = CURRENT_DIRECTORY / "static"
 
+example_file = STATIC_DIR / "bacteria_family.csv"
+
 
 def img_to_base64(img_path: Path) -> str:
     img_bytes = img_path.read_bytes()
@@ -38,6 +40,13 @@ def add_normalize_section():
     st.markdown("## Normalize")
     st.markdown(normalizer.normalize.__doc__)
     with st.expander("Normalize"):
+        with open(example_file.absolute(), "rb") as file:
+            st.download_button(
+                "Do you need an example file?",
+                data=file,
+                file_name=example_file.name,
+                mime="text/csv",
+            )
         with st.form(key="form_normalize", clear_on_submit=False):
             file = st.file_uploader(
                 "Drag and drop a file to process", key="upload_normalize"
