@@ -5,20 +5,21 @@
 from setuptools import find_namespace_packages, setup
 
 REQUIREMENTS = [
-    'tqdm~=4.60',
-    'pandas~=1.2',
-    'biopython~=1.78',
-    'numpy~=1.20'
+    'tqdm',
+    'pandas',
+    'biopython',
+    'numpy'
 ]
 
 CONSOLE_SCRIPTS = [
     'normalize=normalizer:normalize',
+    'genecompare=geneset_compare:main',
 ]
 
 setup(
     name='bioelfa',
     packages=find_namespace_packages(exclude=['data']),
-    version='0.1.0',
+    version='0.1.1',
     author='Lorenzo Andraghetti',
     author_email='andraghetti.l@gmail.com',
     maintainer_email='andraghetti.l@gmail.com',
