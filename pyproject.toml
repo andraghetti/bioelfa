@@ -1,77 +1,80 @@
 # https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
-[project]
+
+[tool.poetry]
 name = "bioelfa"
+version = "0.2.0"
 description = "Set of utilities created for Ellen Fasth."
-readme = "README.md"
-requires-python = ">=3.8"
-authors = [
-    {name = "Lorenzo Andraghetti", email = "andraghetti.l@gmail.com"}
-  ]
-maintainers = [
-    {name = "Lorenzo Andraghetti", email = "andraghetti.l@gmail.com"}
-  ]
-classifiers = [
-    "Programming Language :: Python"
-  ]
-dynamic = ["version"]
-
-dependencies = [
-    'tqdm',
-    'pandas',
-    'biopython',
-    'numpy',
-    'rich_click',
-    'streamlit',
-  ]
-
-[project.optional-dependencies]
-dev = [
-    "black==23.1.0",
-    "pre-commit",
-    "build",
-    "mypy"
-  ]
-
-[tool.setuptools]
-include-package-data = true
-
-[tool.setuptools.packages.find]
-where = ["src"]
-include = ["bioelfa*"]
-
-[tool.setuptools.dynamic]
-version = {attr = "bioelfa._version.__version__"}
-
-[project.urls]
-homepage = "https://github.com/andraghetti/bioelfa"
-documentation = "https://github.com/andraghetti/bioelfa/README.md"
+readme = ["README.md", "src/bioelfa/README.md"]
+authors = ["Lorenzo Andraghetti <andraghetti.l@gmail.com>"]
+maintainers = ["Lorenzo Andraghetti <andraghetti.l@gmail.com>"]
+license = "MIT"
 repository = "https://github.com/andraghetti/bioelfa"
+homepage = "https://github.com/andraghetti/bioelfa"
 
-[project.scripts]
+# Keywords description https://python-poetry.org/docs/pyproject/#keywords
+keywords = ['bioinformatics']
+
+# Pypi classifiers: https://pypi.org/classifiers/
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+]
+
+[tool.poetry.scripts]
+# Entry points for the package https://python-poetry.org/docs/pyproject/#scripts
 bioelfa = "bioelfa.cli:bioelfa"
 
-[tool.black]
-line-length = 88
-include = '\.pyi?$'
-exclude = '''
-  /(
-  | \.git
-  )/
-  '''
+[tool.poetry.dependencies]
+python = "^3.9"
+tqdm = "^4.0"
+pandas = "^1.5.3"
+biopython = "^1.81"
+numpy = "^1.24.2"
+rich-click = "^1.6.1"
 
-[tool.pytest.ini_options]
-addopts = "--doctest-modules"
-doctest_optionflags = "NORMALIZE_WHITESPACE IGNORE_EXCEPTION_DETAIL"
-log_cli = "0"
-log_cli_level = "INFO"
+
+[tool.poetry.dev-dependencies]
+black = {version = "^23"}
+isort = {extras = ["colors"], version = "^5.10.1"}
+mypy = "^1.0.0"
+pre-commit = "^2.0"
+
+[tool.black]
+# https://github.com/psf/black
+target-version = ["py39"]
+line-length = 90
+color = true
+
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | env
+    | venv
+)/
+'''
 
 [tool.mypy]
+# https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
 strict = false
 files = ["src/**/*.py"]
 ignore_missing_imports = true
 pretty = true
 show_column_numbers = true
+
