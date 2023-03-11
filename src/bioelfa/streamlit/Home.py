@@ -44,7 +44,7 @@ def add_normalize_section():
             )
             seed = st.number_input(
                 label="""
-                A seed is a value used to initialize a random number generator, 
+                A seed is a value used to initialize a random number generator,
                 allowing for reproducibility of the same sequence of random numbers.
                 The seed is set to 0 by default to ensure reproducibility, but it can be
                 changed here, to get different results:

@@ -8,7 +8,7 @@
   </p>
 </div>
 
-## Contributing 
+## Contributing
 
 This package is open-source and everyone is welcome to contribute and create PRs.
 
