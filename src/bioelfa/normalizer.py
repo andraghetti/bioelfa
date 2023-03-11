@@ -57,12 +57,11 @@ def get_occurrences(non_zero_rows_values, non_zero_indexes, threshold):
     occurrences = {}
     total_reads = 0
     for index in non_zero_indexes:
-        occurrence = numpy.count_nonzero(sampled_index_list==index)
+        occurrence = numpy.count_nonzero(sampled_index_list == index)
         occurrences[index] = occurrence
         total_reads += occurrence
     # print(f'total_reads: {total_reads}')
     return occurrences
-
 
 
 def normalize_data(dataframe: pandas.DataFrame, threshold: int) -> pandas.DataFrame:
@@ -71,22 +70,25 @@ def normalize_data(dataframe: pandas.DataFrame, threshold: int) -> pandas.DataFr
     """
     # Initialize the selected dataframe to zeros
     selected = pandas.DataFrame().reindex_like(dataframe).fillna(0).astype(int)
-    selected['ID'] = dataframe['ID']
+    selected["ID"] = dataframe["ID"]
 
     # For each sample, select T reads if not empty
-    for sample_name in tqdm(dataframe.columns[1:], unit=' samples'):
-        # Get occurrences of each family 
+    for sample_name in tqdm(dataframe.columns[1:], unit=" samples"):
+        # Get occurrences of each family
         sample_column = dataframe[sample_name]
         non_zero_families_reads = sample_column.loc[sample_column != 0].tolist()
         non_zero_families_indexes = dataframe.index[sample_column != 0].tolist()
-        occurrences = get_occurrences(non_zero_families_reads, non_zero_families_indexes, threshold)
+        occurrences = get_occurrences(
+            non_zero_families_reads, non_zero_families_indexes, threshold
+        )
 
         # Replace the zeros with the sampled reads
         for family_index, num_reads in occurrences.items():
             selected.loc[family_index, sample_name] = num_reads
     return selected
 
-def normalize(dataframe: pandas.DataFrame, seed:int = 0):
+
+def normalize(dataframe: pandas.DataFrame, seed: int = 0):
     """
     Normalize the reads by a threshold T (the smallest number of total
     reads among all the samples). To normalize, we get the threshold and then we randomly pick T reads
@@ -95,7 +97,7 @@ def normalize(dataframe: pandas.DataFrame, seed:int = 0):
 
     # Select threshold for normalization
     threshold, min_sample = get_reads_threshold(dataframe)
-    print(f'Threshold selected {threshold} which is {min_sample}')
+    print(f"Threshold selected {threshold} which is {min_sample}")
 
     # Set seed of NumPy random number generator to be reproducible
     numpy.random.seed(int(seed))
@@ -103,4 +105,3 @@ def normalize(dataframe: pandas.DataFrame, seed:int = 0):
     # Normalize
     normalized_dataframe = normalize_data(dataframe, threshold)
     return normalized_dataframe
-

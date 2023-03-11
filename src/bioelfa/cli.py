@@ -22,6 +22,7 @@ def version():
     """Print version and exit."""
     print(f"Version: {__version__}")
 
+
 @bioelfa.command(help=normalizer.normalize.__doc__)
 @click.option(
     "-f",
@@ -42,10 +43,10 @@ def version():
 def normalize(filepath: str, seed: int):
     dataframe = dataloader.load_csv(filepath)
     normalized_dataframe = normalizer.normalize(dataframe, seed)
-    
+
     # Save result in the same folder, but with 'normalized_' prefix
-    result_path = Path(filepath).parent / str('normalized_' + Path(filepath).name)
-    dataloader.to_csv(normalized_dataframe, result_path)
+    result_path = Path(filepath).parent / str("normalized_" + Path(filepath).name)
+    dataloader.to_csv(normalized_dataframe, str(result_path.absolute()))
     print(f"Normalized dataframe saved as CSV here: {result_path.absolute()} .")
 
 
