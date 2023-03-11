@@ -48,6 +48,6 @@ def compare_datasets(filepath: str):
     """
     dataframe = load_file(filepath)
     occurences = count_occurences(dataframe)
-    outfile_path = Path("data/occurences.csv")
+    outfile_path = Path(filepath).parent / f"occurences_{Path(filepath).name}"
     dataloader.to_csv(occurences, str(outfile_path), index=True)
     print(f"Occurences file saved in: {outfile_path.absolute()}")
