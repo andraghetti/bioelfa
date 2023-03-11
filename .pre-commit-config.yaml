@@ -10,3 +10,8 @@ repos:
       - id: mypy
         additional_dependencies: [types-setuptools]
         args: [--config-file=pyproject.toml]
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    # Ruff version.
+    rev: 'v0.0.245'
+    hooks:
+      - id: ruff
