@@ -118,15 +118,9 @@ def add_compare_section():
             else:
                 return
         if submitted:
-<<<<<<< HEAD
-            st.write("This is the normalized resulting dataframe:")
-            st.dataframe(occurences_dataframe)
-            csv_result_bytes = dataframe.to_csv(sep=";")
-=======
             st.write("This is the resulting dataframe with the occurences:")
             st.dataframe(occurences_dataframe)
             csv_result_bytes = occurences_dataframe.to_csv(sep=";")
->>>>>>> f4d9191 (Chaged names)
             st.download_button(
                 "Download this dataframe as CSV",
                 data=csv_result_bytes,
