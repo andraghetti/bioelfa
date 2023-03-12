@@ -111,7 +111,7 @@ def add_compare_section():
                         return
                     dataframe = dataloader.load_csv(file)
                     with st.spinner(text="In progress..."):
-                        resulting_dataframe = geneset_compare.count_occurences(dataframe)
+                        occurences_dataframe = geneset_compare.count_occurences(dataframe)
                 else:
                     st.error("You must select a file")
                     return
@@ -119,12 +119,12 @@ def add_compare_section():
                 return
         if submitted:
             st.write("This is the normalized resulting dataframe:")
-            st.dataframe(resulting_dataframe)
+            st.dataframe(occurences_dataframe)
             csv_result_bytes = dataframe.to_csv(sep=";")
             st.download_button(
                 "Download this dataframe as CSV",
                 data=csv_result_bytes,
-                file_name=f"normalized_{file.name}",
+                file_name=f"occurences_{file.name}",
                 mime="text/csv",
             )
 
