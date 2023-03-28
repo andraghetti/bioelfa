@@ -10,7 +10,7 @@
 
 #
 
-# 👉 [![ BIOELFA Streamlit App](https://img.shields.io/badge/BIOELFA-Try%20The%20Website-Blue?style=for-the-badge&logo=Streamlit)](https://andraghetti-bioelfa-srcbioelfastreamlithome-ht8mki.streamlit.app/) 👈
+# 👉 [![ BIOELFA Streamlit App](https://img.shields.io/badge/BIOELFA-Try%20The%20Website-Blue?style=for-the-badge&logo=Streamlit)](https://bioelfa.streamlit.app/) 👈
 
 
 
